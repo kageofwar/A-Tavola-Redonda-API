@@ -16,7 +16,7 @@ class ProdutoController extends Controller
 
     public function show(Request $request, $id)
     {
-        $produtos = Produto::findOrFail($id);
+        $produtos = Produto::all();
 
         return response()->json([
             'Mensagem' => 'Produto Encontrado com Sucesso!',
