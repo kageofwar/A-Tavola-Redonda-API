@@ -11,7 +11,10 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::all();
 
-        return response()->json($produtos);
+        return response()->json([
+            'Mensagem' => 'Produtos no sistema.',
+            'Produto' => $produtos
+        ], 200);
     }
 
     public function show(Request $request, $id)
