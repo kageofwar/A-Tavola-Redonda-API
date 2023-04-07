@@ -34,6 +34,21 @@ class ProdutoController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $produtos = Produto::where('id', $id)->first();
+
+        $produtos->nome = $request->input('nome');
+        $produtos->valor = $request->input('valor');
+
+        $produtos->update();
+
+        return response()->json([
+            'Mensagem' => 'Produto Editado com sucesso!',
+            'Produto Cadastrado' => $produtos
+        ], 200);
+    }
+
     public function store(Request $request)
     {   
         $produtos =  new Produto();
