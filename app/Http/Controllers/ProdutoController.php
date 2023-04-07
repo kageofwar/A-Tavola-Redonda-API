@@ -34,7 +34,7 @@ class ProdutoController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         $produtos = Produto::where('id', $id)->first();
 
