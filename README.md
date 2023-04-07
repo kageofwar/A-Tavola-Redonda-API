@@ -1,3 +1,25 @@
+# Tavola Redonda
+## Executando front-end
+
+Para executar o front-end dessa aplicacao em um terminal:
+- git clone https://github.com/xcheesee/tavolaRedonda-FE.git
+- cd tavolaRedonda-FE
+- npm i
+- npm run dev --open
+
+seguindo esses passos voce podera abrir o navegador e ir ao caminho http://localhost:5173/admin para utilizar o modulo administrativo
+
+## Executando back-end
+Para executar o back-end/database dessa aplicacao em um terminal:
+- git clone https:github.com/kageofwar/A-Tavola-Redonda-API.git
+- cd A-Tavola-Redonda-API
+- composer install
+- composer update
+- php artisan serve
+
+seguindo esses passos voce podera recuperar os dados dos produtos guardados no banco a partir de seu front-end
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
