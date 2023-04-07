@@ -19,6 +19,7 @@ Para executar o back-end/database dessa aplicacao em um terminal:
 
 seguindo esses passos voce podera recuperar os dados dos produtos guardados no banco a partir de seu front-end
 
+***LEMBRE-SE QUE A APLICACAO SO FUNCIONARA CORRETAMENTE SE AMBOS AMBIENTES ESTIVEREM CONFIGURADOS E EXECUTANDO EM UMA PORTA DE SUA MAQUINA***
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
