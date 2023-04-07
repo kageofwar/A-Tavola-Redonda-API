@@ -12,8 +12,8 @@ class ProdutoController extends Controller
         $produtos = Produto::all();
 
         return response()->json([
-            'Mensagem' => 'Produtos no sistema.',
-            'Produto' => $produtos
+            'mensagem' => 'Produtos no sistema.',
+            'produto' => $produtos
         ], 200);
     }
 
@@ -38,7 +38,7 @@ class ProdutoController extends Controller
     {   
         $produtos =  new Produto();
         $produtos->nome = $request->input('nome');
-        $produtos->fornecedor_id = $request->input('fornecedor_id');
+        $produtos->valor = $request->input('valor');
 
         $produtos->save();
 
@@ -48,7 +48,7 @@ class ProdutoController extends Controller
         ], 200);
     }
 
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
         $produtos = Produto::findOrFail($id);
 
