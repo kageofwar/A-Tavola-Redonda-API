@@ -9,8 +9,8 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $cliente = Cliente::all();
-
+        $cliente = Cliente::with('pedido')->get();
+        
         return response()->json([
             'mensagem' => 'Todos clientes cadastrados',
             'clientes:' => $cliente
@@ -19,7 +19,7 @@ class ClienteController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Cliente::findOrFail($id)->with('pedido')->get();
 
         return response()->json([
             'mensagem' => 'Cliente encontrado!',

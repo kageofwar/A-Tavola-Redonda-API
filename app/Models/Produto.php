@@ -12,4 +12,9 @@ class Produto extends Model
         'nome',
         'valor',
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 }
