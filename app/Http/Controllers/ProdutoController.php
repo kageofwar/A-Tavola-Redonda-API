@@ -39,7 +39,9 @@ class ProdutoController extends Controller
         $produtos = Produto::where('id', $id)->first();
 
         $produtos->nome = $request->input('nome');
+        $produtos->descricao = $request->input('descricao');
         $produtos->valor = $request->input('valor');
+        $produtos->categoria_id = $request->input('categoria_id');
 
         $produtos->update();
 
@@ -53,7 +55,9 @@ class ProdutoController extends Controller
     {   
         $produtos =  new Produto();
         $produtos->nome = $request->input('nome');
+        $produtos->descricao = $request->input('descricao');
         $produtos->valor = $request->input('valor');
+        $produtos->categoria_id = $request->input('categoria_id');
 
         $produtos->save();
 
@@ -68,6 +72,11 @@ class ProdutoController extends Controller
         $produtos = Produto::findOrFail($id);
 
         $produtos->delete();
+
+        return response()->json([
+            'Mensagem' => 'Produto Deletado com sucesso!',
+            'Produto Deletado' => $produtos
+        ], 200);
     }
 
 }

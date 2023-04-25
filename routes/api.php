@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PedidoItensController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +35,24 @@ Route::get('/fornecedores', [FornecedorController::class, 'index']);
 Route::get('/fornecedores/{id}', [FornecedorController::class, 'show']);
 Route::post('/fornecedores', [FornecedorController::class, 'store']);
 Route::delete('/fornecedores/{id}', [FornecedorController::class, 'destroy']);
+Route::put('/fornecedores/{id}', [FornecedorController::class, 'update']);
+
+Route::get('/categoria', [CategoriaController::class, 'index']);
+Route::post('/categoria', [CategoriaController::class, 'store']);
+Route::get('/categoria/{id}', [CategoriaController::class, 'show']);
+Route::put('/categoria/{id}', [CategoriaController::class, 'update']);
+Route::delete('/categoria/{id}', [CategoriaController::class, 'destroy']);
+
+Route::get('/cliente', [ClienteController::class, 'index']);
+Route::post('/cliente', [ClienteController::class, 'store']);
+Route::get('/cliente/{id}', [ClienteController::class, 'show']);
+Route::put('/cliente/{id}', [ClienteController::class, 'update']);
+Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
+
+Route::get('/pedidos', [PedidoController::class, 'index']);
+Route::post('/pedidos', [PedidoController::class, 'store']);
+Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
+Route::put('/pedidos/{id}', [PedidoController::class, 'update']);
+Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
+
+Route::get('/itens/{id}', [PedidoItensController::class, 'ListarItensdoPedido']);

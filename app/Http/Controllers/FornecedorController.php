@@ -11,7 +11,10 @@ class FornecedorController extends Controller
     {
         $fornecedores = Fornecedor::all();
 
-        return $fornecedores;
+        return response()->json([
+            'mensagem' => 'Todos Fornecedores cadastrados',
+            'fornecedores:' => $fornecedores
+        ], 200);
     }
 
     public function show(Request $request, $id)
@@ -21,12 +24,12 @@ class FornecedorController extends Controller
         if($fornecedores)
         {
             return response()->json([
-                'Mensagem' => 'Produto Encontrado com Sucesso!',
-                'Produto' => $fornecedores
+                'Mensagem' => 'Fornecedor Encontrado com Sucesso!',
+                'Fornecedor' => $fornecedores
             ], 200);
         } else {
             return response()->json([
-                'Mensagem' => 'Produto não encontrado!',
+                'Mensagem' => 'Fornecedor não encontrado!',
             ], 404);
         }
     }
@@ -41,8 +44,37 @@ class FornecedorController extends Controller
             $fornecedores->save();
     
             return response()->json([
-                'Mensagem' => 'Produto Cadastrado com sucesso!',
-                'Produto Cadastrado' => $fornecedores
+                'Mensagem' => 'Fornecedor Cadastrado com sucesso!',
+                'Fornecedor Cadastrado' => $fornecedores
             ], 200);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $fornecedores = Fornecedor::findOrFail($id);
+
+        $fornecedores->nome = $request->input('nome');
+        $fornecedores->telefone = $request->input('telefone');
+        $fornecedores->email = $request->input('email');
+
+        $fornecedores->update();
+
+        return response()->json([
+            'mensagem' => 'Fornecedor atualizado com sucesso!',
+            'Fornecedor:' => $fornecedores
+        ], 200);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $fornecedores = Fornecedor::findOrFail($id);
+
+        $fornecedores->delete();
+
+        return response()->json([
+            'mensagem' => 'Fornecedor deletado com sucesso!',
+            'Fornecedor:' => $fornecedores
+        ], 200);
+
     }
 }
