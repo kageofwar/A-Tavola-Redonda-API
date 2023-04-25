@@ -9,7 +9,7 @@ class ProdutoController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::all();
+        $produtos = Produto::with('categoria')->get();
 
         return response()->json([
             'mensagem' => 'Produtos no sistema.',

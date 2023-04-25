@@ -35,7 +35,7 @@ class PedidoController extends Controller
 
     public function show(Request $request, $id)
     {
-        $pedidos = Pedido::findOrFail($id)->with('cliente', 'pedido_itens.produto.categoria')->get();
+        $pedidos = Pedido::with('cliente', 'pedido_itens.produto.categoria')->findOrFail($id);
 
         if($pedidos)
         {
