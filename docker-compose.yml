@@ -9,6 +9,8 @@ services:
             context: ./
             dockerfile: Dockerfile
         image: tavred-be
+        ports:
+            - 8000:8000
         container_name: tavred_app
         restart: unless-stopped
         working_dir: /var/www
