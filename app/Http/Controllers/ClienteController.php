@@ -19,7 +19,7 @@ class ClienteController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cliente = Cliente::findOrFail($id)->with('pedido')->get();
+        $cliente = Cliente::with('pedido')->findOrFail($id);
 
         return response()->json([
             'mensagem' => 'Cliente encontrado!',

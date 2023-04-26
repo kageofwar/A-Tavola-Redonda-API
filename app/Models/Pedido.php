@@ -18,4 +18,9 @@ class Pedido extends Model
     {
         return $this->hasMany(PedidoItens::class);
     }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 }

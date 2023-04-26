@@ -9,7 +9,7 @@ class CategoriaController extends Controller
 {
     public function index()
     {
-        $categoria = Categoria::all();
+        $categoria = Categoria::with('produto')->get();
 
         return response()->json([
             'mensagem' => 'Todas Categorias cadastradas',
@@ -19,7 +19,7 @@ class CategoriaController extends Controller
 
     public function show(Request $request, $id)
     {
-        $categoria = Categoria::findOrFail($id);
+        $categoria = Categoria::with('produto')->findOrFail($id);
 
         return response()->json([
             'mensagem' => 'Categoria encontrada!',
