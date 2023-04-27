@@ -67,7 +67,7 @@ class ProdutoController extends Controller
         ], 200);
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request, $id)
     {
         $produtos = Produto::findOrFail($id);
 
