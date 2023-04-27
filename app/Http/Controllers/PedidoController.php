@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pedido;
+use App\Models\PedidoItens;
 
 class PedidoController extends Controller
 {
@@ -13,7 +14,7 @@ class PedidoController extends Controller
 
         return response()->json([
             'mensagem' => 'Todos Pedidos cadastrados',
-            'Pedidos:' => $pedidos
+            'pedidos:' => $pedidos
         ], 200);
     }
 
@@ -26,10 +27,21 @@ class PedidoController extends Controller
         $pedidos->forma_pagamento = $request->input('forma_pagamento');
 
         $pedidos->save();
+    
+        $itens = $request->input('itens');
+        
+        foreach($itens as $item) {
+            PedidoItens::create([ 
+                'pedido_id' => $pedidos['id'],
+                'produto_id' => $item['produto_id'],
+                'quantidade' => $item['quantidade'],
+            ]);
+        }
 
         return response()->json([
             'mensagem' => 'Pedido criado com sucesso',
-            'Pedido' => $pedidos
+            'pedido' => $pedidos,
+            'pedidoitens' => $itens
         ]);
     }
 
@@ -40,12 +52,12 @@ class PedidoController extends Controller
         if($pedidos)
         {
             return response()->json([
-                'Mensagem' => 'Pedido Encontrado com Sucesso!',
-                'Pedido' => $pedidos
+                'mensagem' => 'Pedido Encontrado com Sucesso!',
+                'pedido' => $pedidos
             ], 200);
         } else {
             return response()->json([
-                'Mensagem' => 'Pedido não encontrado!',
+                'mensagem' => 'Pedido não encontrado!',
             ], 404);
         }
     }
@@ -61,8 +73,8 @@ class PedidoController extends Controller
         $pedidos->update();
 
         return response()->json([
-            'Mensagem' => 'Pedido Atualizado com sucesso',
-            'Pedido' => $pedidos
+            'mensagem' => 'Pedido Atualizado com sucesso',
+            'pedido' => $pedidos
         ]);
     }
 
@@ -73,8 +85,8 @@ class PedidoController extends Controller
         $pedidos->delete();
 
         return response()->json([
-            'Mensagem' => 'Pedido excluido com sucesso',
-            'Pedido' => $pedidos
+            'mensagem' => 'Pedido excluido com sucesso',
+            'medido' => $pedidos
         ]);
     }
 }

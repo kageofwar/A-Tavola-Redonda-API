@@ -24,12 +24,12 @@ class ProdutoController extends Controller
         if($produtos)
         {
             return response()->json([
-                'Mensagem' => 'Produto Encontrado com Sucesso!',
-                'Produto' => $produtos
+                'mensagem' => 'Produto Encontrado com Sucesso!',
+                'produto' => $produtos
             ], 200);
         } else {
             return response()->json([
-                'Mensagem' => 'Produto não encontrado!',
+                'mensagem' => 'Produto não encontrado!',
             ], 404);
         }
     }
@@ -46,8 +46,8 @@ class ProdutoController extends Controller
         $produtos->update();
 
         return response()->json([
-            'Mensagem' => 'Produto Editado com sucesso!',
-            'Produto Cadastrado' => $produtos
+            'mensagem' => 'Produto Editado com sucesso!',
+            'produto' => $produtos
         ], 200);
     }
 
@@ -62,8 +62,8 @@ class ProdutoController extends Controller
         $produtos->save();
 
         return response()->json([
-            'Mensagem' => 'Produto Cadastrado com sucesso!',
-            'Produto Cadastrado' => $produtos
+            'mensagem' => 'Produto Cadastrado com sucesso!',
+            'produto' => $produtos
         ], 200);
     }
 
@@ -74,8 +74,8 @@ class ProdutoController extends Controller
         $produtos->delete();
 
         return response()->json([
-            'Mensagem' => 'Produto Deletado com sucesso!',
-            'Produto Deletado' => $produtos
+            'mensagem' => 'Produto Deletado com sucesso!',
+            'produto' => $produtos
         ], 200);
     }
 

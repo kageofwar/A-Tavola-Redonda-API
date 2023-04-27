@@ -56,3 +56,4 @@ Route::put('/pedidos/{id}', [PedidoController::class, 'update']);
 Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
 
 Route::get('/itens/{id}', [PedidoItensController::class, 'ListarItensdoPedido']);
+Route::post('/itens', [PedidoItensController::class, 'store']);

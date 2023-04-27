@@ -9,6 +9,11 @@ class PedidoItens extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'pedido_id',
+        'produto_id',
+        'quantidade'];
+
     public function produto()
     {
         return $this->belongsTo(Produto::class);

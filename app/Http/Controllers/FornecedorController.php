@@ -24,12 +24,12 @@ class FornecedorController extends Controller
         if($fornecedores)
         {
             return response()->json([
-                'Mensagem' => 'Fornecedor Encontrado com Sucesso!',
-                'Fornecedor' => $fornecedores
+                'mensagem' => 'Fornecedor Encontrado com Sucesso!',
+                'fornecedor' => $fornecedores
             ], 200);
         } else {
             return response()->json([
-                'Mensagem' => 'Fornecedor não encontrado!',
+                'mensagem' => 'Fornecedor não encontrado!',
             ], 404);
         }
     }
@@ -44,8 +44,8 @@ class FornecedorController extends Controller
             $fornecedores->save();
     
             return response()->json([
-                'Mensagem' => 'Fornecedor Cadastrado com sucesso!',
-                'Fornecedor Cadastrado' => $fornecedores
+                'mensagem' => 'Fornecedor Cadastrado com sucesso!',
+                'fornecedor Cadastrado' => $fornecedores
             ], 200);
     }
 
@@ -61,7 +61,7 @@ class FornecedorController extends Controller
 
         return response()->json([
             'mensagem' => 'Fornecedor atualizado com sucesso!',
-            'Fornecedor:' => $fornecedores
+            'fornecedor:' => $fornecedores
         ], 200);
     }
 
@@ -73,7 +73,7 @@ class FornecedorController extends Controller
 
         return response()->json([
             'mensagem' => 'Fornecedor deletado com sucesso!',
-            'Fornecedor:' => $fornecedores
+            'fornecedor:' => $fornecedores
         ], 200);
 
     }
