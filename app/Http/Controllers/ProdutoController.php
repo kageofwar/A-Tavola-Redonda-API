@@ -56,7 +56,7 @@ class ProdutoController extends Controller
         $produtos =  new Produto();
         $produtos->nome = $request->input('nome');
         $produtos->descricao = $request->input('descricao');
-        $produtos->valor = $request->input('valor');
+        $produtos->valor = number_format($request->input('valor'), 2, "," ,".");
         $produtos->categoria_id = $request->input('categoria_id');
 
         $produtos->save();
