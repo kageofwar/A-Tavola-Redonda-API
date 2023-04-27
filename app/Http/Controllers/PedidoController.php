@@ -14,7 +14,7 @@ class PedidoController extends Controller
 
         return response()->json([
             'mensagem' => 'Todos Pedidos cadastrados',
-            'pedidos:' => $pedidos
+            'pedidos' => $pedidos
         ], 200);
     }
 
