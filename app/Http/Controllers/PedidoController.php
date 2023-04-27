@@ -80,13 +80,17 @@ class PedidoController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        $itens = PedidoItens::where('pedido_id', '=', $id);
+
+        $itens->delete();
+
         $pedidos = Pedido::findOrFail($id);
 
         $pedidos->delete();
 
         return response()->json([
             'mensagem' => 'Pedido excluido com sucesso',
-            'medido' => $pedidos
+            'pedido' => $pedidos
         ]);
     }
 }
