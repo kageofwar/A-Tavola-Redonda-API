@@ -13,7 +13,7 @@ class CategoriaController extends Controller
 
         return response()->json([
             'mensagem' => 'Todas Categorias cadastradas',
-            'categorias:' => $categoria
+            'categorias' => $categoria
         ], 200);
     }
 
@@ -23,7 +23,7 @@ class CategoriaController extends Controller
 
         return response()->json([
             'mensagem' => 'Categoria encontrada!',
-            'categorias:' => $categoria
+            'categorias' => $categoria
         ], 200);
     }
 
@@ -37,7 +37,7 @@ class CategoriaController extends Controller
 
         return response()->json([
             'mensagem' => 'Categoria cadastrada com sucesso!',
-            'categorias:' => $categoria
+            'categorias' => $categoria
         ], 200);
     }
 
@@ -51,7 +51,7 @@ class CategoriaController extends Controller
 
         return response()->json([
             'mensagem' => 'Categoria atualizada com sucesso!',
-            'categorias:' => $categoria
+            'categorias' => $categoria
         ], 200);
     }
 
@@ -63,7 +63,7 @@ class CategoriaController extends Controller
 
         return response()->json([
             'mensagem' => 'Categoria deletada com sucesso!',
-            'categorias:' => $categoria
+            'categorias' => $categoria
         ], 200);
     }
 }
