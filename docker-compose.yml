@@ -21,6 +21,8 @@ services:
         image: mysql:8.0.33
         container_name: tavred-db
         restart: unless-stopped
+        volumes:
+            - db-data:/var/lib/mysql
         ports:
             - 3306:3306
         environment:
@@ -30,7 +32,8 @@ services:
             MYSQL_USER: ${DB_USERNAME}
         networks:
             - tavred
-
+volumes:
+    db-data:
 networks:
     tavred:
         driver: bridge
