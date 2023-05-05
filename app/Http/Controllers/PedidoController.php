@@ -23,8 +23,8 @@ class PedidoController extends Controller
         $pedidos = new Pedido();
 
         $pedidos->cliente_id = $request->input('cliente_id');
-        $pedidos->Status = $request->input('Status');
         $pedidos->forma_pagamento = $request->input('forma_pagamento');
+        $pedidos->status_pedido = $request->input('status_pedido');
 
         $pedidos->save();
     
@@ -67,7 +67,7 @@ class PedidoController extends Controller
         $pedidos = Pedido::findOrFail($id);
 
         $pedidos->cliente_id = $request->input('cliente_id');
-        $pedidos->Status = $request->input('Status');
+        $pedidos->status_pedido = $request->input('status_pedido');
         $pedidos->forma_pagamento = $request->input('forma_pagamento');
 
         $pedidos->update();
