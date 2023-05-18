@@ -24,24 +24,27 @@ class PedidoController extends Controller
 
         $pedidos->cliente_id = $request->input('cliente_id');
         $pedidos->forma_pagamento = $request->input('forma_pagamento');
-        $pedidos->status_pedido = $request->input('status_pedido');
+        $pedidos->status_pedido = "recebido";
 
         $pedidos->save();
     
         $itens = $request->input('itens');
         
         foreach($itens as $item) {
-            PedidoItens::create([ 
+            $pedidoItems = PedidoItens::create([ 
                 'pedido_id' => $pedidos['id'],
                 'produto_id' => $item['produto_id'],
                 'quantidade' => $item['quantidade'],
             ]);
         }
 
+        $pedidos->load('cliente', 'pedido_itens.produto.categoria');
+        //$pedidoItems->load('pedido_itens.produto.categoria');
+
         return response()->json([
             'mensagem' => 'Pedido criado com sucesso',
             'pedido' => $pedidos,
-            'pedidoitens' => $itens
+            //'pedidoitens' => $pedidoItems
         ]);
     }
 
