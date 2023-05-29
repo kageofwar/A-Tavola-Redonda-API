@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produto;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\ProdutoResource;
 
 class ProdutoController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::with('categoria')->get();
+        //$produtos = Produto::with('categoria')->get();
+        $produtos = QueryBuilder::for(Produto::class)
+        ->join("categorias", "categorias.id", "=", "produtos.categoria_id")
+        ->select("categorias.nome", "produtos.*")
+        ->allowedFilters([
+            AllowedFilter::partial('categorias','categoria.nome'),
+            "nome"
+            ])
+        ->paginate(10);
 
-        return response()->json([
-            'mensagem' => 'Produtos no sistema.',
-            'produto' => $produtos
-        ], 200);
+        return ProdutoResource::collection($produtos);
     }
 
     public function show(Request $request, $id)
