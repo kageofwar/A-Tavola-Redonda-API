@@ -12,7 +12,6 @@ class ProdutoController extends Controller
 {
     public function index()
     {
-        //$produtos = Produto::with('categoria')->get();
         $produtos = QueryBuilder::for(Produto::class)
         ->join("categorias", "categorias.id", "=", "produtos.categoria_id")
         ->select("categorias.nome", "produtos.*")
