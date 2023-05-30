@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Pedido extends Model
 {
@@ -22,5 +24,13 @@ class Pedido extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+    }
+    
+    public function scopeValorMaiorQue(Builder $query, $valor): Builder {
+        return $query->where('total', ">", $valor);
+    }
+
+    public function scopeValorMenorQue(Builder $query, $valor): Builder {
+        return $query->where('total', "<", $valor);
     }
 }

@@ -6,18 +6,29 @@ use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\PedidoItens;
 use App\Models\Produto;
+use App\Http\Resources\PedidoResource;
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PedidoController extends Controller
 {
     public function index()
     {
-        $pedidos = Pedido::with('cliente', 'pedido_itens.produto.categoria')->get();
+        //$pedidos = Pedido::with('cliente', 'pedido_itens.produto.categoria')->get();
+        $pedidos = QueryBuilder::for(Pedido::class)
+        ->join("clientes", "clientes.id", "=", "pedidos.cliente_id")
+        ->select("pedidos.*", "clientes.nome")
+        ->allowedFilters([
+            AllowedFilter::partial('clientes', 'clientes.nome'),
+            AllowedFilter::scope('valor_menor_que'),
+            AllowedFilter::scope('valor_maior_que'),
+            "forma_pagamento",
+            "status_pedido"
+        ])
+        ->get();
 
-        return response()->json([
-            'mensagem' => 'Todos Pedidos cadastrados',
-            'pedidos' => $pedidos
-        ], 200);
+        return PedidoResource::collection($pedidos); 
     }
 
     public function store(Request $request)
