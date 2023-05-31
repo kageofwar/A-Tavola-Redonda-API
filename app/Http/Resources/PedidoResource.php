@@ -17,7 +17,7 @@ class PedidoResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "cliente" => $this->cliente->nome,
+            "cliente" => $this->cliente,
             "itens" => PedidoItensResource::collection($this->itens),
             "forma_pagamento" => $this->forma_pagamento,
             "status_pedido" => $this->status_pedido,
