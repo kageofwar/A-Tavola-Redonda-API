@@ -28,6 +28,12 @@ class PedidoController extends Controller
         ])
         ->get();
 
+        foreach($pedidos as $pedido) {
+            $pedido->itens = PedidoItens::select("quantidade", "produto_id")
+            ->where('pedido_id', $pedido->id)
+            ->get();
+        }
+
         return PedidoResource::collection($pedidos); 
     }
 

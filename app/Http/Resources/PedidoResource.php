@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\PedidoItensResource;
 
 class PedidoResource extends JsonResource
 {
@@ -16,7 +17,8 @@ class PedidoResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "cliente" => $this->cliente,
+            "cliente" => $this->cliente->nome,
+            "itens" => PedidoItensResource::collection($this->itens),
             "forma_pagamento" => $this->forma_pagamento,
             "status_pedido" => $this->status_pedido,
             "total" => $this->total,
