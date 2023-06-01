@@ -52,12 +52,15 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/pedidos', [PedidoController::class, 'index']);
     Route::post('/pedidos', [PedidoController::class, 'store']);
     Route::get('/pedidos/por_pagamento', [PedidoController::class, "por_pagamento"]);
+    Route::get('/pedidos/por_status', [PedidoController::class, "por_status"]);
+    Route::get('/pedidos/por_categoria', [PedidoController::class, "por_categoria"]);
     Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
     Route::put('/pedidos/{id}', [PedidoController::class, 'update']);
     Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
     
-    Route::get('/itens/{id}', [PedidoItensController::class, 'ListarItensdoPedido']);
+    Route::get('/itens/{id}', [PedidoItensController::class, 'ListarItensdoPedido']);    
     Route::post('/itens', [PedidoItensController::class, 'store']);
+
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
