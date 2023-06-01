@@ -128,7 +128,7 @@ class PedidoController extends Controller
         ]);
     }
     //funcoes para resgatar dados dos pedidos para exibicao em graficos no front. Ex: total por tipo de pagamento, total por produto, total por categoria etc....
-     public function por_pagamento() {
+    public function por_pagamento() {
         $formasPagamento = ['Cartão de Crédito', 'Cartão de débito', 'Dinheiro'];
         $formasFormatado = [
             'Cartão de Crédito' => 'credito',
@@ -150,7 +150,7 @@ class PedidoController extends Controller
         return response()->json($pedidos);
      }
 
-     public function por_status() {
+    public function por_status() {
         $allStatus = ['recebido', 'em_andamento', 'finalizado'];
         foreach($allStatus as $status) {
             $pedidos[$status] = QueryBuilder::for(Pedido::class)
@@ -186,6 +186,5 @@ class PedidoController extends Controller
             }
         }
         return response()->json($pedidoSum);
-
     }
 }
