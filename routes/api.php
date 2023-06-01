@@ -52,6 +52,8 @@ Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
 Route::get('/pedidos', [PedidoController::class, 'index']);
 Route::post('/pedidos', [PedidoController::class, 'store']);
 Route::get('/pedidos/por_pagamento', [PedidoController::class, "por_pagamento"]);
+Route::get('/pedidos/por_status', [PedidoController::class, "por_status"]);
+Route::get('/pedidos/por_categoria', [PedidoController::class, "por_categoria"]);
 Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
 Route::put('/pedidos/{id}', [PedidoController::class, 'update']);
 Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);

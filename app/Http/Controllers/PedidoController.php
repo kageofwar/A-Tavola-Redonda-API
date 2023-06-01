@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\PedidoItens;
 use App\Models\Produto;
+use App\Models\Categoria;
 use App\Http\Resources\PedidoResource;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -128,9 +129,63 @@ class PedidoController extends Controller
     }
     //funcoes para resgatar dados dos pedidos para exibicao em graficos no front. Ex: total por tipo de pagamento, total por produto, total por categoria etc....
      public function por_pagamento() {
-        $pedidos = Pedido::where("forma_pagamento", "dinheiro")
-        ->where("status_pedido", "finalizado")
-        ->sum("total");
+        $formasPagamento = ['Cartão de Crédito', 'Cartão de débito', 'Dinheiro'];
+        $formasFormatado = [
+            'Cartão de Crédito' => 'credito',
+            'Cartão de débito' => 'debito',
+            'Dinheiro' => 'dinheiro'
+        ];
+        $pedidos = [];
+
+        foreach( $formasPagamento as $forma) {
+            $pedidos[$formasFormatado[$forma]] = QueryBuilder::for(Pedido::class)
+            ->AllowedFilters([
+                'status_pedido',
+                AllowedFilter::scope("data_antes_de"),
+                AllowedFilter::scope("data_depois_de"),
+            ])
+            ->where( 'forma_pagamento', $forma) 
+            ->sum("total");
+        }
         return response()->json($pedidos);
      }
+
+     public function por_status() {
+        $allStatus = ['recebido', 'em_andamento', 'finalizado'];
+        foreach($allStatus as $status) {
+            $pedidos[$status] = QueryBuilder::for(Pedido::class)
+            ->AllowedFilters([
+                'forma_pagamento',
+                AllowedFilter::scope("data_antes_de"),
+                AllowedFilter::scope("data_depois_de"),
+            ])
+            ->where('status_pedido', $status)
+            ->sum("total");
+
+        }
+        return response()->json($pedidos);
+     }
+    
+    public function por_categoria() {
+        $allCats = Categoria::select('nome', 'id')
+        ->get();
+
+        foreach($allCats as $cat) {
+            $pedidoSum[$cat->nome] = 0;
+            $i[$cat->id] = $cat->nome;
+            $pedido[$cat->nome] = QueryBuilder::for(PedidoItens::class)
+            ->join('produtos', 'pedido_itens.produto_id', '=', 'produtos.id')
+            ->AllowedFilters([])
+            ->where('produtos.categoria_id', $cat->id)
+            ->get();
+        }
+
+        foreach($pedido as $item) {
+            foreach($item as $produto) {
+                $pedidoSum[$i[$produto->categoria_id]]  += (float)$produto->valor * (float)$produto->quantidade;
+            }
+        }
+        return response()->json($pedidoSum);
+
+    }
 }
