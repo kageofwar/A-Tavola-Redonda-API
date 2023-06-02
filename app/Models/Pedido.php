@@ -35,10 +35,10 @@ class Pedido extends Model
     }
     
     public function scopeDataDepoisDe(Builder $query, $data): Builder {
-        return $query->where('created_at', ">=" , Carbon::parse($data));
+        return $query->where('pedidos.created_at', ">=" , Carbon::parse($data));
     }
 
     public function scopeDataAntesDe(Builder $query, $data): Builder {
-        return $query->where('created_at', "<=" , Carbon::parse($data));
+        return $query->where('pedidos.created_at', "<=" , Carbon::parse($data));
     }
 }
