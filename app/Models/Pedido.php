@@ -11,9 +11,9 @@ class Pedido extends Model
 {
     use HasFactory;
 
-    public function cliente()
+    public function users()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(User::class);
     }
     
     public function pedido_itens()

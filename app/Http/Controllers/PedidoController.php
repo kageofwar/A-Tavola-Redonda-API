@@ -74,7 +74,7 @@ class PedidoController extends Controller
         } else {
             DB::rollback();
         }
-        $pedidos->load('cliente', 'pedido_itens.produto.categoria');
+        $pedidos->load('users', 'pedido_itens.produto.categoria');
 
         return response()->json([
             'mensagem' => 'Pedido criado com sucesso',
