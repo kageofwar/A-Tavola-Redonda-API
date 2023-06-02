@@ -191,4 +191,16 @@ class PedidoController extends Controller
         }
         return response()->json($pedidoSum);
     }
+
+    // Metodo para trazer todos os pedidos feitos pelo usuario logado.
+    public function pedidos_do_cliente()
+    {
+        $user = auth()->user();
+
+        $PedidosUser = QueryBuilder::for(Pedido::class)
+        ->join('users', 'pedidos.cliente_id', '=', 'users.id')
+        ->get();
+
+        dd($PedidosUser);
+    }
 }

@@ -25,7 +25,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
 
-    Route::get('/produtos', [ProdutoController::class, 'index']);
     Route::post('/produtos', [ProdutoController::class, 'store']);
     Route::get('/produtos/{id}', [ProdutoController::class, 'show']);
     Route::post('/produtos/{id}', [ProdutoController::class, 'update']);
@@ -37,7 +36,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::delete('/fornecedores/{id}', [FornecedorController::class, 'destroy']);
     Route::post('/fornecedores/{id}', [FornecedorController::class, 'update']);
     
-    Route::get('/categoria', [CategoriaController::class, 'index']);
     Route::post('/categoria', [CategoriaController::class, 'store']);
     Route::get('/categoria/{id}', [CategoriaController::class, 'show']);
     Route::post('/categoria/{id}', [CategoriaController::class, 'update']);
@@ -54,14 +52,17 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/pedidos/por_pagamento', [PedidoController::class, "por_pagamento"]);
     Route::get('/pedidos/por_status', [PedidoController::class, "por_status"]);
     Route::get('/pedidos/por_categoria', [PedidoController::class, "por_categoria"]);
+    Route::get('/pedidos/por_cliente', [PedidoController::class, 'pedidos_do_cliente']);
     Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
     Route::post('/pedidos/{id}', [PedidoController::class, 'update']);
     Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
     
     Route::get('/itens/{id}', [PedidoItensController::class, 'ListarItensdoPedido']);    
     Route::post('/itens', [PedidoItensController::class, 'store']);
-
-
+    
+    
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+Route::get('/produtos', [ProdutoController::class, 'index']);
+Route::get('/categoria', [CategoriaController::class, 'index']);
