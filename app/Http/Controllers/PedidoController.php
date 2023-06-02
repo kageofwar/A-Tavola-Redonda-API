@@ -29,21 +29,24 @@ class PedidoController extends Controller
         ])
         ->get();
 
+        
         foreach($pedidos as $pedido) {
             $pedido->itens = PedidoItens::select("quantidade", "produto_id")
             ->where('pedido_id', $pedido->id)
             ->get();
         }
-
+        
         return PedidoResource::collection($pedidos); 
     }
 
     public function store(Request $request)
     {
+        $user = auth()->user();
+
         $pedidos = new Pedido();
         $total = 0;
         DB::beginTransaction();
-        $pedidos->cliente_id = $request->input('cliente_id');
+        $pedidos->cliente_id = $user->id;
         $pedidos->forma_pagamento = $request->input('forma_pagamento');
         $pedidos->status_pedido = "recebido";
         $pedidos->total = 0;
@@ -98,9 +101,10 @@ class PedidoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = auth()->user();
         $pedidos = Pedido::findOrFail($id);
 
-        $pedidos->cliente_id = $request->input('cliente_id');
+        $pedidos->cliente_id = $user->id;
         $pedidos->status_pedido = $request->input('status_pedido');
         $pedidos->forma_pagamento = $request->input('forma_pagamento');
 

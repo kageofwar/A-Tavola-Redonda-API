@@ -28,25 +28,25 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/produtos', [ProdutoController::class, 'index']);
     Route::post('/produtos', [ProdutoController::class, 'store']);
     Route::get('/produtos/{id}', [ProdutoController::class, 'show']);
-    Route::put('/produtos/{id}', [ProdutoController::class, 'update']);
+    Route::post('/produtos/{id}', [ProdutoController::class, 'update']);
     Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy']);
     
     Route::get('/fornecedores', [FornecedorController::class, 'index']);
     Route::get('/fornecedores/{id}', [FornecedorController::class, 'show']);
     Route::post('/fornecedores', [FornecedorController::class, 'store']);
     Route::delete('/fornecedores/{id}', [FornecedorController::class, 'destroy']);
-    Route::put('/fornecedores/{id}', [FornecedorController::class, 'update']);
+    Route::post('/fornecedores/{id}', [FornecedorController::class, 'update']);
     
     Route::get('/categoria', [CategoriaController::class, 'index']);
     Route::post('/categoria', [CategoriaController::class, 'store']);
     Route::get('/categoria/{id}', [CategoriaController::class, 'show']);
-    Route::put('/categoria/{id}', [CategoriaController::class, 'update']);
+    Route::post('/categoria/{id}', [CategoriaController::class, 'update']);
     Route::delete('/categoria/{id}', [CategoriaController::class, 'destroy']);
     
     Route::get('/cliente', [ClienteController::class, 'index']);
     Route::post('/cliente', [ClienteController::class, 'store']);
     Route::get('/cliente/{id}', [ClienteController::class, 'show']);
-    Route::put('/cliente/{id}', [ClienteController::class, 'update']);
+    Route::post('/cliente/{id}', [ClienteController::class, 'update']);
     Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
     
     Route::get('/pedidos', [PedidoController::class, 'index']);
@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/pedidos/por_status', [PedidoController::class, "por_status"]);
     Route::get('/pedidos/por_categoria', [PedidoController::class, "por_categoria"]);
     Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
-    Route::put('/pedidos/{id}', [PedidoController::class, 'update']);
+    Route::post('/pedidos/{id}', [PedidoController::class, 'update']);
     Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
     
     Route::get('/itens/{id}', [PedidoItensController::class, 'ListarItensdoPedido']);    

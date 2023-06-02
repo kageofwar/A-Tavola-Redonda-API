@@ -43,47 +43,72 @@ class ProdutoController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $produtos = Produto::where('id', $id)->first();
+        $user = auth()->user();
 
-        $produtos->nome = $request->input('nome');
-        $produtos->descricao = $request->input('descricao');
-        $produtos->valor = $request->input('valor');
-        $produtos->categoria_id = $request->input('categoria_id');
+        if ($user->hasRole('Adminstrador')) {
+            
+            $produtos = Produto::where('id', $id)->first();
 
-        $produtos->update();
+            $produtos->nome = $request->input('nome');
+            $produtos->descricao = $request->input('descricao');
+            $produtos->valor = $request->input('valor');
+            $produtos->categoria_id = $request->input('categoria_id');
 
-        return response()->json([
-            'mensagem' => 'Produto Editado com sucesso!',
-            'produto' => $produtos
-        ], 200);
+            $produtos->update();
+
+            return response()->json([
+                'mensagem' => 'Produto Editado com sucesso!',
+                'produto' => $produtos
+            ], 200);
+        } else {
+            return response()->json([
+                'mensagem' => 'Somente administradores podem editar os produtos.'
+            ], 401);
+        }
     }
 
     public function store(Request $request)
     {   
-        $produtos =  new Produto();
-        $produtos->nome = $request->input('nome');
-        $produtos->descricao = $request->input('descricao');
-        $produtos->valor = number_format($request->input('valor'), 2, "," ,".");
-        $produtos->categoria_id = $request->input('categoria_id');
+        $user = auth()->user();
 
-        $produtos->save();
+        if ($user->hasRole('Adminstrador')) {
+            $produtos =  new Produto();
+            $produtos->nome = $request->input('nome');
+            $produtos->descricao = $request->input('descricao');
+            $produtos->valor = number_format($request->input('valor'), 2, "," ,".");
+            $produtos->categoria_id = $request->input('categoria_id');
 
-        return response()->json([
-            'mensagem' => 'Produto Cadastrado com sucesso!',
-            'produto' => $produtos
-        ], 200);
+            $produtos->save();
+
+            return response()->json([
+                'mensagem' => 'Produto Cadastrado com sucesso!',
+                'produto' => $produtos
+            ], 200);
+        } else {
+            return response()->json([
+                'mensagem' => 'Somente administradores podem cadastrar novos produtos.'
+            ], 401);
+        }
     }
 
     public function destroy(Request $request, $id)
     {
-        $produtos = Produto::findOrFail($id);
+        $user = auth()->user();
 
-        $produtos->delete();
+        if ($user->hasRole('Adminstrador')) {
+            $produtos = Produto::findOrFail($id);
 
-        return response()->json([
-            'mensagem' => 'Produto Deletado com sucesso!',
-            'produto' => $produtos
-        ], 200);
+            $produtos->delete();
+
+            return response()->json([
+                'mensagem' => 'Produto Deletado com sucesso!',
+                'produto' => $produtos
+            ], 200);
+        } else {
+            return response()->json([
+                'mensagem' => 'Somente administradores podem deletar os produtos.'
+            ], 401);
+        }
     }
 
 }
