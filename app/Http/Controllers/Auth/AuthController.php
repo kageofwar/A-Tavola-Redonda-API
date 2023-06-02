@@ -30,6 +30,7 @@ class AuthController extends Controller
         ]);
 
         $user->assignRole('Cliente');
+        //$user->assignRole('Admin');
 
         $user->save();
 

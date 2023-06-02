@@ -25,6 +25,8 @@ class PedidoController extends Controller
             AllowedFilter::partial('users', 'users.name'),
             AllowedFilter::scope('valor_menor_que'),
             AllowedFilter::scope('valor_maior_que'),
+            AllowedFilter::scope('data_antes_de'),
+            AllowedFilter::scope('data_depois_de'),
             "forma_pagamento",
             "status_pedido"
         ])
@@ -180,7 +182,10 @@ class PedidoController extends Controller
             $i[$cat->id] = $cat->nome;
             $pedido[$cat->nome] = QueryBuilder::for(PedidoItens::class)
             ->join('produtos', 'pedido_itens.produto_id', '=', 'produtos.id')
-            ->AllowedFilters([])
+            ->AllowedFilters([
+                AllowedFilter::scope("data_antes_de"),
+                AllowedFilter::scope("data_depois_de"),
+            ])
             ->where('produtos.categoria_id', $cat->id)
             ->get();
         }
