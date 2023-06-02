@@ -20,7 +20,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 422);
         }
 
         $user = User::create([
@@ -36,9 +36,9 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'Usuario Cadastrado' => $user,
-            'Token de Acesso' => $token,
-            'Tipo do Token' => 'Bearer',
+            'user' => $user,
+            'token' => $token,
+            'type' => 'Bearer',
         ]);
     }
 
@@ -52,12 +52,12 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'Mensagem' => 'Olá '.$user->name.', seja bem-vindo!',
-            'Nome' => $user->name,
-            'E-mail' => $user->email,
-            'Id do Usuario' => $user->id,
-            'Token de Acesso' => $token,
-            'Tipo do Token' => 'Bearer',
+            'mensagem' => 'Olá '.$user->name.', seja bem-vindo!',
+            'nome' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id,
+            'token' => $token,
+            'type' => 'Bearer',
         ]);
     }
 
