@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\PedidoItens;
@@ -33,7 +34,7 @@ class PedidoController extends Controller
 
         
         foreach($pedidos as $pedido) {
-            $pedido->itens = PedidoItens::select("quantidade", "produto_id")
+            $pedido->pedido_itens = PedidoItens::select("quantidade", "produto_id")
             ->where('pedido_id', $pedido->id)
             ->get();
         }
@@ -202,10 +203,8 @@ class PedidoController extends Controller
     {
         $user = auth()->user();
 
-        $PedidosUser = QueryBuilder::for(Pedido::class)
-        ->join('users', 'pedidos.cliente_id', '=', 'users.id')
-        ->get();
+        $userPedidos = Pedido::where('cliente_id', $user->id)->get(); 
 
-        dd($PedidosUser);
+        return PedidoResource::collection($userPedidos);
     }
 }
