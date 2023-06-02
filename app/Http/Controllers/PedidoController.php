@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\PedidoItens;
@@ -18,10 +19,10 @@ class PedidoController extends Controller
     {
         //$pedidos = Pedido::with('cliente', 'pedido_itens.produto.categoria')->get();
         $pedidos = QueryBuilder::for(Pedido::class)
-        ->join("clientes", "clientes.id", "=", "pedidos.cliente_id")
-        ->select("pedidos.*", "clientes.nome")
+        ->join("users", "users.id", "=", "pedidos.cliente_id")
+        ->select("pedidos.*", "users.name")
         ->allowedFilters([
-            AllowedFilter::partial('clientes', 'clientes.nome'),
+            AllowedFilter::partial('users', 'users.name'),
             AllowedFilter::scope('valor_menor_que'),
             AllowedFilter::scope('valor_maior_que'),
             "forma_pagamento",
@@ -31,7 +32,7 @@ class PedidoController extends Controller
 
         
         foreach($pedidos as $pedido) {
-            $pedido->itens = PedidoItens::select("quantidade", "produto_id")
+            $pedido->pedido_itens = PedidoItens::select("quantidade", "produto_id")
             ->where('pedido_id', $pedido->id)
             ->get();
         }
@@ -197,10 +198,8 @@ class PedidoController extends Controller
     {
         $user = auth()->user();
 
-        $PedidosUser = QueryBuilder::for(Pedido::class)
-        ->join('users', 'pedidos.cliente_id', '=', 'users.id')
-        ->get();
+        $userPedidos = Pedido::where('cliente_id', $user->id)->get(); 
 
-        dd($PedidosUser);
+        return PedidoResource::collection($userPedidos);
     }
 }
