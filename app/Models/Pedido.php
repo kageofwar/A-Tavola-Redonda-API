@@ -27,18 +27,18 @@ class Pedido extends Model
     }
     
     public function scopeValorMaiorQue(Builder $query, $valor): Builder {
-        return $query->where('total', ">", $valor);
+        return $query->where('total', ">=", $valor);
     }
 
     public function scopeValorMenorQue(Builder $query, $valor): Builder {
-        return $query->where('total', "<", $valor);
+        return $query->where('total', "<=", $valor);
     }
     
     public function scopeDataDepoisDe(Builder $query, $data): Builder {
-        return $query->where('created_at', ">" , Carbon::parse($data));
+        return $query->where('created_at', ">=" , Carbon::parse($data));
     }
 
     public function scopeDataAntesDe(Builder $query, $data): Builder {
-        return $query->where('created_at', "<" , Carbon::parse($data));
+        return $query->where('created_at', "<=" , Carbon::parse($data));
     }
 }
