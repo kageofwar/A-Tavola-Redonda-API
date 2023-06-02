@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Cookie;
 
 class AuthController extends Controller
 {
@@ -51,6 +52,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
+        Cookie::queue('token', $token, 4320);
 
         return response()->json([
             'mensagem' => 'Olá '.$user->name.', seja bem-vindo!',
@@ -59,7 +61,7 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'token' => $token,
             'type' => 'Bearer',
-        ]);
+        ])->cookie('token', $token, 4320);
     }
 
     public function logout()
