@@ -69,14 +69,14 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {   
-        $user = auth()->user();
+        //$user = auth()->user();
 
-        if ($user->hasRole('Adminstrador')) {
+        //if ($user->hasRole('Adminstrador')) {
             $produtos =  new Produto();
             $produtos->nome = $request->input('nome');
             $produtos->descricao = $request->input('descricao');
             $produtos->valor = number_format($request->input('valor'), 2, "," ,".");
-            $produtos->categoria_id = $request->input('categoria_id');
+            $produtos->categoria_id = $request->input('categoria_id') ? $request->input('categoria_id') : "";
 
             $produtos->save();
 
@@ -84,18 +84,18 @@ class ProdutoController extends Controller
                 'mensagem' => 'Produto Cadastrado com sucesso!',
                 'produto' => $produtos
             ], 200);
-        } else {
-            return response()->json([
-                'mensagem' => 'Somente administradores podem cadastrar novos produtos.'
-            ], 401);
-        }
+        //} else {
+        //    return response()->json([
+        //        'mensagem' => 'Somente administradores podem cadastrar novos produtos.'
+        //    ], 401);
+        //}
     }
 
     public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        //$user = auth()->user();
 
-        if ($user->hasRole('Adminstrador')) {
+        //if ($user->hasRole('Adminstrador')) {
             $produtos = Produto::findOrFail($id);
 
             $produtos->delete();
@@ -104,11 +104,11 @@ class ProdutoController extends Controller
                 'mensagem' => 'Produto Deletado com sucesso!',
                 'produto' => $produtos
             ], 200);
-        } else {
-            return response()->json([
-                'mensagem' => 'Somente administradores podem deletar os produtos.'
-            ], 401);
-        }
+        //} else {
+        //    return response()->json([
+        //        'mensagem' => 'Somente administradores podem deletar os produtos.'
+        //    ], 401);
+        //}
     }
 
 }
